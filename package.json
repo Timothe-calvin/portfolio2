@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "git": "^0.1.5",
+    "lfs": "^0.0.4",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
