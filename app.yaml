@@ -1,0 +1,12 @@
+# This project is configured for Firebase Hosting only
+# Do not deploy to Google App Engine or Cloud Run
+# Use Firebase Hosting: firebase deploy --only hosting
+runtime: custom
+env: standard
+
+# This will prevent automatic deployment to App Engine/Cloud Run
+skip_files:
+- .*
+- node_modules/
+- src/
+- public/

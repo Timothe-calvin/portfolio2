@@ -1,0 +1,5 @@
+# Ignore everything for Cloud Run deployment since this is a static site
+*
+# This project should only deploy to Firebase Hosting, not Cloud Run
+!.firebaserc
+!firebase.json

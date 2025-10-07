@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "start": "echo 'This is a static site for Firebase Hosting only. Use npm run dev for development.' && exit 1",
     "lint": "eslint .",
     "preview": "vite preview",
     "firebase:build": "npm run build",
