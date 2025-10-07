@@ -7,9 +7,14 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "firebase:build": "npm run build",
+    "firebase:deploy": "firebase deploy",
+    "firebase:serve": "firebase serve",
+    "deploy": "npm run build && firebase deploy"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "git": "^0.1.5",
     "lfs": "^0.0.4",
     "react": "^19.1.1",
