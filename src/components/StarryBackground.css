@@ -13,6 +13,26 @@
     #0f0f23 100%
   );
   pointer-events: none;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  animation: gradientShift 20s ease-in-out infinite;
+}
+
+.starry-background canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  will-change: transform;
 }
 
 /* Ensure the background covers the full viewport */
@@ -51,8 +71,4 @@ body {
       #0f0f23 100%
     );
   }
-}
-
-.starry-background {
-  animation: gradientShift 20s ease-in-out infinite;
 }

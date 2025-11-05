@@ -6,24 +6,37 @@ const RedStarsBackground = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current
-    const ctx = canvas.getContext('2d')
-    let animationId
+    if (!canvas) return
 
-    // Set canvas size
+    const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true })
+    if (!ctx) return
+
+    let animationId
+    let isAnimating = false
+
+    // Set canvas size with device pixel ratio for crisp rendering
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
+      const dpr = window.devicePixelRatio || 1
+      const rect = canvas.getBoundingClientRect()
+      
+      canvas.width = rect.width * dpr
+      canvas.height = rect.height * dpr
+      
+      ctx.scale(dpr, dpr)
+      
+      canvas.style.width = rect.width + 'px'
+      canvas.style.height = rect.height + 'px'
     }
 
-    // Red Star class
+    // Red Star class with improved performance
     class RedStar {
       constructor() {
         this.reset()
-        this.y = Math.random() * canvas.height
+        this.y = Math.random() * (canvas.height || window.innerHeight)
       }
 
       reset() {
-        this.x = Math.random() * canvas.width
+        this.x = Math.random() * (canvas.width || window.innerWidth)
         this.y = -10
         this.size = Math.random() * 2.5 + 0.5
         this.speed = Math.random() * 1.5 + 0.3
@@ -37,7 +50,8 @@ const RedStarsBackground = () => {
         this.twinkle += this.twinkleSpeed
         
         // Reset star when it goes off screen
-        if (this.y > canvas.height + 10) {
+        const canvasHeight = canvas.height || window.innerHeight
+        if (this.y > canvasHeight + 10) {
           this.reset()
         }
       }
@@ -79,8 +93,11 @@ const RedStarsBackground = () => {
       stars.push(new RedStar())
     }
 
-    // Animation loop
+    // Animation loop with performance optimization
     const animate = () => {
+      if (!canvas || !ctx) return
+      
+      isAnimating = true
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       
       stars.forEach(star => {
@@ -91,19 +108,40 @@ const RedStarsBackground = () => {
       animationId = requestAnimationFrame(animate)
     }
 
-    // Initialize
-    resizeCanvas()
-    animate()
+    // Throttled resize handler
+    let resizeTimeout
+    const handleResize = () => {
+      if (resizeTimeout) clearTimeout(resizeTimeout)
+      resizeTimeout = setTimeout(resizeCanvas, 100)
+    }
+
+    // Initialize with delay to ensure DOM is ready
+    const initAnimation = () => {
+      resizeCanvas()
+      if (!isAnimating) {
+        animate()
+      }
+    }
+
+    // Start animation after a brief delay
+    const initTimeout = setTimeout(initAnimation, 100)
 
     // Event listeners
-    window.addEventListener('resize', resizeCanvas)
+    window.addEventListener('resize', handleResize)
 
     // Cleanup
     return () => {
-      window.removeEventListener('resize', resizeCanvas)
+      window.removeEventListener('resize', handleResize)
       if (animationId) {
         cancelAnimationFrame(animationId)
       }
+      if (resizeTimeout) {
+        clearTimeout(resizeTimeout)
+      }
+      if (initTimeout) {
+        clearTimeout(initTimeout)
+      }
+      isAnimating = false
     }
   }, [])
 
