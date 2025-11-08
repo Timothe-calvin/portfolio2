@@ -97,7 +97,9 @@ function App() {
     { name: "Discord.js", level: 85 },
     { name: "Git & GitHub", level: 90 },
     { name: "Vite & Tailwind", level: 80 },
-    { name: "RESTful APIs", level: 75 }
+    { name: "RESTful APIs", level: 75 },
+    { name: "WordPress", level: 70 },
+    { name: "Drupal", level: 65 }
   ]
 
   const certifications = [
@@ -156,36 +158,90 @@ function App() {
     <div className="App">
       <StarryBackground />
       {/* Navigation */}
-      <nav className="navbar">
+      <nav className="navbar" role="navigation" aria-label="Main navigation">
         <div className="nav-container">
           <div className="nav-logo">
             <h2>TC Portfolio</h2>
           </div>
-          <div className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
-            <a href="#home" className="nav-link" onClick={() => setIsMenuOpen(false)}>
-              Home
-            </a>
-            <a href="#about" className="nav-link" onClick={() => setIsMenuOpen(false)}>
-              About
-            </a>
-            <a href="#skills" className="nav-link" onClick={() => setIsMenuOpen(false)}>
-              Skills
-            </a>
-            <a href="#certifications" className="nav-link" onClick={() => setIsMenuOpen(false)}>
-              Certifications
-            </a>
-            <a href="#projects" className="nav-link" onClick={() => setIsMenuOpen(false)}>
-              Projects
-            </a>
-            <a href="#contact" className="nav-link" onClick={() => setIsMenuOpen(false)}>
-              Contact
-            </a>
-          </div>
-          <div className="nav-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            <span className="bar"></span>
-            <span className="bar"></span>
-            <span className="bar"></span>
-          </div>
+          <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`} role="menubar">
+            <li role="none">
+              <a 
+                href="#home" 
+                className="nav-link" 
+                role="menuitem"
+                onClick={() => setIsMenuOpen(false)}
+                aria-label="Navigate to Home section"
+              >
+                Home
+              </a>
+            </li>
+            <li role="none">
+              <a 
+                href="#about" 
+                className="nav-link" 
+                role="menuitem"
+                onClick={() => setIsMenuOpen(false)}
+                aria-label="Navigate to About section"
+              >
+                About
+              </a>
+            </li>
+            <li role="none">
+              <a 
+                href="#skills" 
+                className="nav-link" 
+                role="menuitem"
+                onClick={() => setIsMenuOpen(false)}
+                aria-label="Navigate to Skills section"
+              >
+                Skills
+              </a>
+            </li>
+            <li role="none">
+              <a 
+                href="#certifications" 
+                className="nav-link" 
+                role="menuitem"
+                onClick={() => setIsMenuOpen(false)}
+                aria-label="Navigate to Certifications section"
+              >
+                Certifications
+              </a>
+            </li>
+            <li role="none">
+              <a 
+                href="#projects" 
+                className="nav-link" 
+                role="menuitem"
+                onClick={() => setIsMenuOpen(false)}
+                aria-label="Navigate to Projects section"
+              >
+                Projects
+              </a>
+            </li>
+            <li role="none">
+              <a 
+                href="#contact" 
+                className="nav-link" 
+                role="menuitem"
+                onClick={() => setIsMenuOpen(false)}
+                aria-label="Navigate to Contact section"
+              >
+                Contact
+              </a>
+            </li>
+          </ul>
+          <button 
+            className={`nav-toggle ${isMenuOpen ? 'active' : ''}`} 
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={isMenuOpen}
+            aria-controls="nav-menu"
+          >
+            <span className="bar" aria-hidden="true"></span>
+            <span className="bar" aria-hidden="true"></span>
+            <span className="bar" aria-hidden="true"></span>
+          </button>
         </div>
       </nav>
 
@@ -201,7 +257,7 @@ function App() {
               <p className="hero-description">
                 I'm a passionate developer specializing in React, JavaScript, and modern web technologies. 
                 I create responsive websites, Discord bots, and innovative web applications with clean, efficient code.
-                With experience in AI integration, RESTful APIs, and modern frameworks, I bring ideas to life through code.
+                With experience in CMS platforms like WordPress and Drupal, AI integration, RESTful APIs, and modern frameworks, I bring ideas to life through code.
               </p>
               <div className="hero-buttons">
                 <a href="#projects" className="btn btn-primary">View My Work</a>
@@ -237,8 +293,8 @@ function App() {
                 </p>
                 <p>
                   I specialize in HTML5, CSS3, JavaScript, React, Node.js, and modern frameworks like Vite and Tailwind CSS. 
-                  My experience spans from creating responsive web applications to developing sophisticated Discord bots 
-                  with AI integration and music streaming capabilities.
+                  My experience includes CMS development with WordPress and Drupal, creating custom themes, plugins, and content management solutions.
+                  I also develop sophisticated Discord bots with AI integration and music streaming capabilities.
                 </p>
               </div>
               <div className="about-highlights">
@@ -264,6 +320,11 @@ function App() {
                     <h4>Responsive Design</h4>
                     <p>Mobile-first approach with cross-browser compatibility</p>
                   </div>
+                  <div className="highlight-item">
+                    <i className="fas fa-cogs"></i>
+                    <h4>CMS Development</h4>
+                    <p>WordPress and Drupal custom themes, plugins, and content solutions</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -272,20 +333,24 @@ function App() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="skills">
+      <section id="skills" className="skills" aria-labelledby="skills-heading">
         <div className="container">
-          <h2 className="section-title">Technical Skills</h2>
-          <div className="skills-grid">
+          <h2 id="skills-heading" className="section-title">Technical Skills</h2>
+          <div className="skills-grid" role="list" aria-label="Technical skills with proficiency levels">
             {skills.map((skill, index) => (
-              <div key={index} className="skill-item">
-                <div className="skill-name">{skill.name}</div>
-                <div className="skill-bar">
+              <div key={index} className="skill-item" role="listitem">
+                <div className="skill-header">
+                  <div className="skill-name">{skill.name}</div>
+                  <div className="skill-percentage" aria-label={`${skill.level} percent proficiency`}>
+                    {skill.level}%
+                  </div>
+                </div>
+                <div className="skill-bar" role="progressbar" aria-valuenow={skill.level} aria-valuemin="0" aria-valuemax="100" aria-label={`${skill.name} skill level`}>
                   <div 
                     className="skill-progress" 
                     style={{ width: `${skill.level}%` }}
                   ></div>
                 </div>
-                <div className="skill-percentage">{skill.level}%</div>
               </div>
             ))}
           </div>
