@@ -63,6 +63,13 @@ function App() {
 
   const projects = [
     {
+      title: "Bible Study Website",
+      description: "An interactive Bible study web application built with modern web technologies. Features scripture search, study tools, reading plans, and a user-friendly interface for exploring biblical texts. Hosted on Firebase with responsive design for seamless access across all devices.",
+      technologies: ["HTML5", "CSS3", "JavaScript", "Firebase", "Responsive Design", "Web APIs"],
+      link: "https://github.com/Timothe-calvin/bible-website",
+      liveDemo: "https://biblewebsite-b3c77.firebaseapp.com/"
+    },
+    {
       title: "A Space Bot - Discord Bot & Website",
       description: "A comprehensive Discord bot website featuring A Space Bot with moderation tools, Bible commands, AI chat, voice controls, and fun activities. Includes full website with privacy policy, terms of service, and command documentation.",
       technologies: ["HTML5", "CSS3", "JavaScript", "Node.js", "Discord.js", "AI APIs"],
