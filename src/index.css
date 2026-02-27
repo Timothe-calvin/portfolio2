@@ -1,6 +1,9 @@
-/* Global CSS Reset and Base Styles */
+/* Global CSS Reset and Base Styles - Modern & Clean */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
 }
 
 body {
@@ -9,20 +12,54 @@ body {
     'Ubuntu', 'Cantarell', 'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #ffffff;
+  text-rendering: optimizeLegibility;
+  background-color: #FFFFFF;
+  color: #0A1929;
+  line-height: 1.6;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', 'Monaco', monospace;
 }
 
-/* Remove default button styles */
-button {
+/* Remove default button and input styles */
+button,
+input,
+textarea,
+select {
   font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
 }
 
 /* Smooth scrolling for anchor links */
-a[href^="#"] {
-  scroll-behavior: smooth;
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Remove default focus outline and add modern one */
+*:focus-visible {
+  outline: 2px solid #0066FF;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Improve image rendering */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Remove default list styles */
+ul, ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Ensure box-sizing is border-box globally */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
