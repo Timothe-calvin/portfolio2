@@ -12,15 +12,20 @@
  * - {{message}} - sender's message
  */
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useCallback } from 'react'
 import emailjs from '@emailjs/browser'
-import StarryBackground from './components/StarryBackground'
-import RedStarsBackground from './components/RedStarsBackground'
 import profileImage from './assets/e99ad5bd-0495-4aab-a27b-d378f8fad294.jpg'
 import './App.css'
 
 function App() {
+  // ============================================
+  // STATE MANAGEMENT
+  // ============================================
+  
+  // Navigation state
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  
+  // Contact form state
   const [formData, setFormData] = useState({
     name: '',
     message: ''
@@ -29,20 +34,25 @@ function App() {
   const [submitStatus, setSubmitStatus] = useState('')
   const formRef = useRef()
 
-  const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
+  // ============================================
+  // EVENT HANDLERS
+  // ============================================
+  
+  // Handle form input changes
+  const handleInputChange = useCallback((e) => {
+    setFormData(prev => ({
+      ...prev,
       [e.target.name]: e.target.value
-    })
-  }
+    }))
+  }, [])
 
-  const handleSubmit = async (e) => {
+  // Handle form submission with EmailJS
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault()
     setIsLoading(true)
     setSubmitStatus('')
 
     try {
-      // Using environment variables for EmailJS configuration
       await emailjs.sendForm(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
@@ -59,14 +69,17 @@ function App() {
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [])
 
+  // ============================================
+  // DATA - PROJECTS
+  // ============================================
+  
   const projects = [
     {
       title: "Bible Study Website",
       description: "An interactive Bible study web application built with modern web technologies. Features scripture search, study tools, reading plans, and a user-friendly interface for exploring biblical texts. Hosted on Firebase with responsive design for seamless access across all devices.",
       technologies: ["HTML5", "CSS3", "JavaScript", "Firebase", "Responsive Design", "Web APIs"],
-      link: "https://github.com/Timothe-calvin/bible-website",
       liveDemo: "https://biblewebsite-b3c77.firebaseapp.com/"
     },
     {
@@ -91,11 +104,14 @@ function App() {
       title: "SafeSpace - Personal Portfolio",
       description: "A modern, responsive personal portfolio website built with React and Vite. Features dark/light mode, animated backgrounds, contact forms with EmailJS integration, and professional resume display with fullscreen capabilities.",
       technologies: ["React", "Vite", "EmailJS", "CSS3", "Responsive Design", "Firebase"],
-      link: "https://github.com/Timothe-calvin/portfolio",
       liveDemo: "https://asafespace.neocities.org/"
     }
   ]
 
+  // ============================================
+  // DATA - SKILLS & EXPERTISE
+  // ============================================
+  
   const skills = [
     { name: "HTML5 & CSS3", level: 95 },
     { name: "JavaScript", level: 85 },
@@ -109,6 +125,10 @@ function App() {
     { name: "Drupal", level: 65 }
   ]
 
+  // ============================================
+  // DATA - CERTIFICATIONS
+  // ============================================
+  
   const certifications = [
     {
       title: "Get Started with Cloud Native, DevOps, Agile, and NoSQL",
@@ -161,9 +181,12 @@ function App() {
     }
   ]
 
+  // ============================================
+  // RENDER
+  // ============================================
+  
   return (
     <div className="App">
-      <StarryBackground />
       {/* Navigation */}
       <nav className="navbar" role="navigation" aria-label="Main navigation">
         <div className="nav-container">
@@ -277,6 +300,10 @@ function App() {
                   src={profileImage} 
                   alt="Timothe Calvin - Full-Stack Developer" 
                   className="profile-img"
+                  loading="eager"
+                  fetchpriority="high"
+                  width="380"
+                  height="380"
                 />
               </div>
             </div>
@@ -286,7 +313,6 @@ function App() {
 
       {/* About Section */}
       <section id="about" className="about">
-        <RedStarsBackground />
         <div className="container">
           <h2 className="section-title">About Me</h2>
           <div className="about-content">
@@ -366,7 +392,6 @@ function App() {
 
       {/* Certifications Section */}
       <section id="certifications" className="certifications">
-        <RedStarsBackground />
         <div className="container">
           <h2 className="section-title">Certifications & Achievements</h2>
           <div className="certifications-grid">
@@ -389,7 +414,6 @@ function App() {
 
       {/* Projects Section */}
       <section id="projects" className="projects">
-        <StarryBackground />
         <div className="container">
           <h2 className="section-title">Featured Projects</h2>
           <div className="projects-grid">
@@ -403,9 +427,11 @@ function App() {
                   ))}
                 </div>
                 <div className="project-links">
-                  <a href={project.link} className="project-link" target="_blank" rel="noopener noreferrer">
-                    <i className="fab fa-github"></i> View Code
-                  </a>
+                  {project.link && (
+                    <a href={project.link} className="project-link" target="_blank" rel="noopener noreferrer">
+                      <i className="fab fa-github"></i> View Code
+                    </a>
+                  )}
                   {project.liveDemo && (
                     <a href={project.liveDemo} className="project-link live-demo" target="_blank" rel="noopener noreferrer">
                       <i className="fas fa-external-link-alt"></i> Live Demo
@@ -420,7 +446,6 @@ function App() {
 
       {/* Contact Section */}
       <section id="contact" className="contact">
-        <RedStarsBackground />
         <div className="container">
           <h2 className="section-title">Get In Touch</h2>
           <div className="contact-content">

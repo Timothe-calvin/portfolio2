@@ -79,6 +79,18 @@
   padding: 0;
 }
 
+/* Loading States */
+.bg-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: -1;
+}
+
+/* Performance Optimizations */
 .App {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
   line-height: 1.6;
@@ -86,6 +98,9 @@
   position: relative;
   overflow-x: hidden;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 /* Utility Classes */
@@ -331,6 +346,8 @@
   animation: float 6s ease-in-out infinite;
   transition: all var(--transition);
   border: 3px solid rgba(255, 255, 255, 0.3);
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .profile-image::before {
@@ -356,6 +373,8 @@
   filter: contrast(1.05) brightness(1.02) saturate(1.05);
   transition: filter var(--transition);
   border-radius: var(--radius-full);
+  will-change: filter;
+  transform: translateZ(0);
 }
 
 .profile-image:hover .profile-img {
@@ -604,6 +623,8 @@ section {
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all var(--transition);
   box-shadow: var(--shadow-sm);
+  will-change: transform, background;
+  transform: translateZ(0);
 }
 
 .skill-item:hover {
@@ -696,6 +717,8 @@ section {
   transition: all var(--transition);
   position: relative;
   overflow: hidden;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .certification-card::before {
@@ -796,6 +819,8 @@ section {
   transition: all var(--transition);
   position: relative;
   overflow: hidden;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .project-card::before {
@@ -1303,5 +1328,37 @@ section {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .btn:hover {
+    transform: none;
+  }
+  
+  .skill-item:hover,
+  .project-card:hover,
+  .certification-card:hover {
+    transform: none;
+  }
+  
+  .btn:active {
+    transform: scale(0.97);
+  }
+}
+
+/* Mobile Performance Optimizations */
+@media (max-width: 768px) {
+  * {
+    -webkit-tap-highlight-color: rgba(0, 102, 255, 0.2);
+  }
+  
+  .profile-image {
+    animation: none;
+  }
+  
+  canvas {
+    pointer-events: none;
   }
 }
