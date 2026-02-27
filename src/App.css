@@ -252,7 +252,7 @@
 
 /* Hero Section */
 .hero {
-  background: transparent;
+  background: linear-gradient(135deg, #0A1929 0%, #1a2b4a 50%, #0d1f36 100%);
   color: white;
   min-height: 100vh;
   display: flex;
@@ -795,7 +795,7 @@ section {
 
 /* Projects Section - Modern Grid */
 .projects {
-  background: transparent;
+  background: linear-gradient(135deg, #1a2b4a 0%, #0A1929 50%, #132F4C 100%);
   position: relative;
   color: white;
 }
@@ -925,23 +925,24 @@ section {
 
 /* Contact Section - Clean & Accessible */
 .contact {
-  background: var(--background-primary);
+  background: linear-gradient(180deg, #0d1f36 0%, #0A1929 100%);
   position: relative;
   z-index: var(--z-base);
+  padding: var(--spacing-20) 0;
 }
 
 .contact .section-title {
-  color: var(--text-primary);
+  color: white;
 }
 
 .contact-info p,
 .contact-method,
 .contact-method strong {
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .contact-method a {
-  color: var(--primary-color);
+  color: var(--primary-light);
   text-decoration: none;
   font-weight: 600;
   transition: all var(--transition-fast);
